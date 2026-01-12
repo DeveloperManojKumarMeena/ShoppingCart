@@ -1,30 +1,30 @@
-import { Children, createContext,  useState } from "react"
+import {  createContext, useState } from "react";
 
- export const CartCon = createContext();
- 
-function CartContext({Children}) {
- 
-  const [Cart, setCart] = useState([])
+export const wraper = createContext(null);
 
-//add Product
-const addToCart =(product)=>{
+function CartContext(props) {
 
-    setCart((prev)=>{
-      const existing = prev.find((item)=> item.id === product.id);
+  const [Cart, setCart] = useState([]);
 
-      if(existing){
-        return prev.map((item)=>item.id === product.id ? {...item , qty: item.qty+1} : item)
+  //add Product
+  const addToCart = (product) => {
+    setCart((prev) => {
+      const existing = prev.find((item) => item.id === product.id);
+
+      if (existing) {
+        return prev.map((item) =>
+          item.id === product.id ? { ...item, qty: item.qty + 1 } : item
+        );
       }
-      return [...prev, {...product, qty: 1}]
-    })
-}
+      return [...prev, { ...product, qty: 1 }];
+    });
+  };
 
   return (
-    <CartCon.Provider value={{Cart,setCart,addToCart}}>
-      {Children}
-    </CartCon.Provider>
-  )
+    <wraper.Provider value={{ Cart, setCart, addToCart }}>
+      {props.children}
+    </wraper.Provider>
+  );
 }
 
-export default CartContext
-
+export default CartContext;

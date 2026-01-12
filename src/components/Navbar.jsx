@@ -1,18 +1,16 @@
-
-import { useContext } from 'react'
+import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
-import CartContext from '../context/CartContext'
-
+import { wraper } from '../context/CartContext'
 
 function Navbar() {
-  const {cart} = useContext(CartContext)
+  const {Cart} = useContext(wraper)
   return (
      <nav className="w-full h-20 flex flex-col justify-center  px-5 bg-gray-950 text-white">
       <div className="flex  items-center  ">
-        <Link className="navbar-brand fw-bold" href="Home.html">🛒 MyShop</Link>
+        <Link className="navbar-brand fw-bold" to="/">🛒 MyShop</Link>
         <div className='w-[90%] flex  justify-between px-2'>
           <Link className="" to="/">Home</Link>
-          <Link className="" to="/cart">Cart ({cart.length})</Link>
+          <Link className="" to="/cart">Cart ({Cart.length})</Link>
         </div>
       </div>
     </nav>
