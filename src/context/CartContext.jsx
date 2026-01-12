@@ -20,8 +20,16 @@ function CartContext(props) {
     });
   };
 
+  const removeFromCart = (id)=>{
+    setCart((prev)=>prev.filter((item)=>item.id !== id))
+  }
+  const updateQTY = (id,qty)=>{
+    setCart((prev)=>
+    prev.map((item)=>(item.id === id ? {...item ,qty} : item )))
+  }
+
   return (
-    <wraper.Provider value={{ Cart, setCart, addToCart }}>
+    <wraper.Provider value={{ Cart, setCart, addToCart ,removeFromCart ,updateQTY  }}>
       {props.children}
     </wraper.Provider>
   );

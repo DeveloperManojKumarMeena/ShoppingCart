@@ -1,10 +1,10 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext } from 'react'
 import { wraper } from '../context/CartContext'
 
 function Cart() {
-  const { Cart } = useContext(wraper)
-  const [cartItems] = useState(Cart)
-  console.log(cartItems)
+  const { Cart,removeFromCart } = useContext(wraper)
+  const cartItems  = Cart
+ 
 
   const subtotal = cartItems.reduce((sum, item) => sum + (item.price * item.qty), 0)
   const tax = subtotal * 0.1
@@ -53,7 +53,7 @@ function Cart() {
                           ${(item.price * item.qty).toFixed(2)}
                         </td>
                         <td className="px-6 py-4 text-sm">
-                          <button className="text-red-600 hover:text-red-800 font-medium transition">
+                          <button onClick={()=>removeFromCart(item.id)} className="text-red-600 hover:text-red-800 font-medium transition">
                             Remove
                           </button>
                         </td>
