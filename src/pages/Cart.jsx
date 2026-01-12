@@ -1,12 +1,12 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
+import { wraper } from '../context/CartContext'
 
 function Cart() {
-  const [cartItems] = useState([
-    { id: 1, name: 'Phone', price: 500, quantity: 1 },
-    { id: 2, name: 'Laptop', price: 1000, quantity: 1 }
-  ])
+  const { Cart } = useContext(wraper)
+  const [cartItems] = useState(Cart)
+  console.log(cartItems)
 
-  const subtotal = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0)
+  const subtotal = cartItems.reduce((sum, item) => sum + (item.price * item.qty), 0)
   const tax = subtotal * 0.1
   const total = subtotal + tax
 
@@ -45,12 +45,12 @@ function Cart() {
                           <input
                             type="number"
                             min="1"
-                            defaultValue={item.quantity}
+                            defaultValue={item.qty}
                             className="w-16 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                           />
                         </td>
                         <td className="px-6 py-4 text-sm font-semibold text-gray-900">
-                          ${(item.price * item.quantity).toFixed(2)}
+                          ${(item.price * item.qty).toFixed(2)}
                         </td>
                         <td className="px-6 py-4 text-sm">
                           <button className="text-red-600 hover:text-red-800 font-medium transition">
@@ -77,18 +77,18 @@ function Cart() {
                       <span className="text-sm text-gray-600">Price: ${item.price.toFixed(2)}</span>
                     </div>
                     <div className="flex justify-between items-center">
-                      <label className="text-sm text-gray-600">Qty:</label>
+                      <label className="text-sm text-gray-600">Qty:{item.qty}</label>
                       <input
                         type="number"
                         min="1"
-                        defaultValue={item.quantity}
+                        defaultValue={item.qty}
                         className="w-16 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                       />
                     </div>
                     <div className="flex justify-between items-center pt-2 border-t border-gray-200">
                       <span className="text-sm font-semibold text-gray-900">Subtotal:</span>
                       <span className="text-sm font-bold text-gray-900">
-                        ${(item.price * item.quantity).toFixed(2)}
+                        ${(item.price * item.qty).toFixed(2)}
                       </span>
                     </div>
                   </div>
